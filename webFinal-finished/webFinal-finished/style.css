@@ -1,0 +1,126 @@
+body{ 
+  font-family: Verdana, Arial, Helvetica, sans-serif;
+  font-size: 18px; 
+  background-color:#CCC;
+  margin-left: 10%;
+  margin-right: 10%;
+}
+
+header{
+  height:100px;
+  background-color: black;
+}
+/*The following section is styling for the photo gallery, and is adapted from the tutorial at
+http://www.tutorialized.com/tutorial/Create-a-Simple-and-Effective-Photo-Gallery-using-HTML-and-JavaScript/54533*/
+.thumbnails img {
+  height: 80px;
+  border: 4px solid #555;
+  padding: 1px;
+  margin: 0 10px 10px 0;
+}
+
+.thumbnails img:hover {
+  border: 4px solid #000000;
+  cursor:pointer;
+}
+
+.preview img {
+  border: 4px solid #444;
+  padding: 1px;
+  height: 500px;
+}
+
+.badData{
+  font-weight: bold;
+  color: red;
+}
+
+.goodData{
+  font-weight: bold;
+  color: green;
+}
+
+h1{
+  text-align: center;
+}
+
+h2{
+  text-align: center;
+}
+
+h3{
+  text-align: center;
+}
+
+p{
+  margin-left: 10%;
+  margin-right: 10%;
+  font-family: Verdana, Arial, Helvetica, sans-serif;
+  font-size: 18px;
+}
+
+form{
+  font-family: Verdana, Arial, Helvetica, sans-serif;
+  font-size: 14px;
+}
+
+footer {
+    height: 40px;
+	width: 100%;
+	position:relative;
+    bottom:0;
+    background: black;
+	font-family: Verdana, Arial, Helvetica, sans-serif;
+	font-size: 14px;
+	color: white;
+}
+
+label {
+  float: left;
+  width: 150px;
+}
+
+.liftTable {
+	margin:0px;
+	padding:0px;
+	width:100%;
+	box-shadow: 10px 10px 5px #888888;
+	border:1px solid #000000;
+}
+.liftTable tr > th {
+  text-align:center;
+}
+.liftTable tr:nth-child(odd){ background-color:#AAAAAA; }
+.liftTable tr:nth-child(even)    { background-color:#999999; }
+.liftTable td{
+	vertical-align:middle;
+	border:1px solid #000000;
+	border-width:1px 1px 1px 1px;
+	text-align:left;
+	padding:15px;
+	font-size:14px;
+	font-family:Helvetica;
+	font-weight:bold;
+	color:#000000;
+}
+
+.button {
+  border-radius: 10px;
+  font-family: Arial;
+  color: #ffffff;
+  font-size: 20px;
+  background: #999999;
+  padding: 10px 20px 10px 20px;
+}
+
+.button:hover {
+  background: #333333;
+}
+
+progress{
+  height:20px;
+}
+
+#visualization{
+  display: inline-block;
+}
