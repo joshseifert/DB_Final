@@ -1,1 +1,0 @@
-<footer>CS290 Final Project, Winter 2015. Sarcastically written by Josh Seifert</footer>

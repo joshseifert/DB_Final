@@ -7,27 +7,8 @@ body{
 }
 
 header{
-  height:100px;
+  height:120px;
   background-color: black;
-}
-/*The following section is styling for the photo gallery, and is adapted from the tutorial at
-http://www.tutorialized.com/tutorial/Create-a-Simple-and-Effective-Photo-Gallery-using-HTML-and-JavaScript/54533*/
-.thumbnails img {
-  height: 80px;
-  border: 4px solid #555;
-  padding: 1px;
-  margin: 0 10px 10px 0;
-}
-
-.thumbnails img:hover {
-  border: 4px solid #000000;
-  cursor:pointer;
-}
-
-.preview img {
-  border: 4px solid #444;
-  padding: 1px;
-  height: 500px;
 }
 
 .badData{

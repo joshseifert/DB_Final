@@ -78,31 +78,3 @@ function checknotes(){
   }
 }
 
-//These functions adapted from tutorials by Adam Khoury @ developphp.com
-function upload(){
-	var file = document.getElementById("upFile").files[0];
-	var formData = new FormData();
-	formData.append("upFile", file);
-	var ajax = new XMLHttpRequest();
-	ajax.upload.addEventListener("progress", progress, false);
-	ajax.addEventListener("load", complete, false);
-	ajax.addEventListener("error", error, false);
-	ajax.addEventListener("abort", abort, false);
-	ajax.open("POST", "../final/upload.php");
-	ajax.send(formData);
-}
-function progress(evt){
-	var percent = (evt.loaded / evt.total) * 100;
-	document.getElementById("bar").value = Math.round(percent);
-	document.getElementById("upStatus").innerHTML = Math.round(percent)+"%";
-}
-function complete(evt){
-	document.getElementById("upStatus").innerHTML = evt.target.responseText;
-	document.getElementById("bar").value = 0;
-}
-function error(evt){
-	document.getElementById("upStatus").innerHTML = "Upload Failed";
-}
-function abort(evt){
-	document.getElementById("upStatus").innerHTML = "Upload Aborted";
-}

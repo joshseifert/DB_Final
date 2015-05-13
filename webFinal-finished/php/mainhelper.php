@@ -1,10 +1,5 @@
 <?php
 session_start();
-//If user is not logged in, redirect to login page
-if(!isset($_SESSION["username"])){
-	header("location: ../final/login.php");
-    exit();
-}
 //Contains information about the database, and instantiates a mysqli object.
 include 'userinfo.php';
 

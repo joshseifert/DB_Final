@@ -8,8 +8,8 @@
 	<a href="about.php">
 	  <img src="images/about.png">
 	</a>
-	<a href="compare.php">
-	  <img src="images/compare.png">
+	<a href="main.php">
+	  <img src="images/database.png">
 	</a>
   </div>
 </header>
