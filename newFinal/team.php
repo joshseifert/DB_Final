@@ -15,10 +15,11 @@ function printTeam(){
   global $mysqli;
   echo '<table border = 1> <tr> <td>Name</td> <td>Mascot</td> <td>Year Founded</td> <td>2014 Avg Home Attendance</td><td>Stadium</td></tr>';
   if($_POST['name'] == "All"){
-    $res = $mysqli->query("SELECT t.name, t.mascot, t.year_founded, t.home_attendance, s.name FROM team t INNER JOIN stadium s ON s.id = t.stadium_id")->fetch_all();
+	  //Must do LEFT JOIN to get teams that do not have a stadium!
+    $res = $mysqli->query("SELECT t.name, t.mascot, t.year_founded, t.home_attendance, s.name FROM team t LEFT JOIN stadium s ON s.id = t.stadium_id")->fetch_all();
   }
   else{
-    $res = $mysqli->query("SELECT t.name, t.mascot, t.year_founded, t.home_attendance, s.name FROM team t INNER JOIN stadium s ON s.id = t.stadium_id WHERE t.name = '" . $_POST['name'] . "'")->fetch_all();
+    $res = $mysqli->query("SELECT t.name, t.mascot, t.year_founded, t.home_attendance, s.name FROM team t LEFT JOIN stadium s ON s.id = t.stadium_id WHERE t.name = '" . $_POST['name'] . "'")->fetch_all();
   }
   for ($i = 0; $i < count($res); $i++){
     echo "<tr><td>" . $res[$i][0] . "</td><td>" . $res[$i][1] . "</td><td>" . $res[$i][2] . "</td><td>" . $res[$i][3] . "</td><td>". $res[$i][4] . "</td></tr>";
