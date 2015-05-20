@@ -23,6 +23,7 @@ if(isset($_POST['home_team'])){
 	if($home_team_id == $away_team_id)
 	{
 		echo "<script type='text/javascript'>alert('Teams can\'t play themselves! Choose different Home and Away teams.');</script>";
+
 	}
 	else
 	{
@@ -38,7 +39,7 @@ if(isset($_POST['home_team'])){
       $stmt->close();
 	}
 
-header("location: game.php");
+header("location: InsertGame.php");
 exit();
 }
 
