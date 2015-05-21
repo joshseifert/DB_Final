@@ -33,12 +33,8 @@ function OddEvenNumbers(){
     }
     else if ($_POST['odd_even']=='Even')
     {
-		echo "<script type='text/javascript'>alert('odd_even is: " . $_POST['odd_even'] . "');</script>";
-        echo '<table border = 1> <tr> <td>Team Name</td> <td>First Name</td> <td>Last Name</td> <td>Position</td> <td>Jersey Number</td></tr>';
-		echo "<script type='text/javascript'>alert('Check 1');</script>";
-		
+		echo '<table border = 1> <tr> <td>Team Name</td> <td>First Name</td> <td>Last Name</td> <td>Position</td> <td>Jersey Number</td></tr>';
         $res = $mysqli->query("SELECT t.name, first_name, last_name, position, jersey FROM player p INNER JOIN team t ON t.id = p.team_id WHERE (t.name ='" . $_POST['teamName'] . "'AND p.position='" . $_POST['position'] . "'AND (p.jersey % 2 = 0))")->fetch_all();
-        echo "<script type='text/javascript'>alert('Check 2');</script>";
         for ($i = 0; $i < count($res); $i++) {
             echo "<tr><td>" . $res[$i][0] . "</td><td>" . $res[$i][1] . "</td><td>" . $res[$i][2] . "</td><td>" . $res[$i][3] . "</td><td>" . $res[$i][4] . "</td>";
         }
