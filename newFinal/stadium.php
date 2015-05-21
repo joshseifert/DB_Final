@@ -41,6 +41,7 @@ function deleteStadium()
   }
   echo '</select><input type = "submit" value = "Delete" onclick = "return confirmDelete()"></input></form>';
 }
+
 ?>
 
 
@@ -73,7 +74,7 @@ function deleteStadium()
 	City: <input type="text" name="city" value=""><br />
 	Year Built: <input type="number" name="yearBuilt" value="2000" min="1900" max = "2015"><br />
 	<p>* Denotes a required field.</p>
-  <input type="submit">
+  <input type="submit" name="insStadium">
   </form>
   
   <h4>Out with the old, in with the new. Demolish a stadium, and build a new one in its place.</h4>

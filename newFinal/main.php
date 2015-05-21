@@ -33,6 +33,11 @@
   </form>
   <br />
 
+   <form action="advanced.php">
+       <button class="button">Advanced</button>
+   </form>
+   <br />
+
 </div>
 <?php include "footer.php"?>
 </body>

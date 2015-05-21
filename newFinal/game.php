@@ -112,6 +112,8 @@ function addGame()
   <h4>Some games are so ugly, you want to pretend they never happened. Now you can! Get rid of evidence that your favorite team is a perennial disappointment.</h4>
   Select Game:
     <?php deleteGame(); ?>
+
+  <h4></h4>
   
 <?php include "footer.php"?>
 </body>
