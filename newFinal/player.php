@@ -74,8 +74,10 @@ function printTeamPlayers(){
 	<p>* Denotes a required field.</p>
   <input type="submit">
   </form>
-	
-	
+
+<br />
+
+
 
   <?php include "footer.php"?>
 
