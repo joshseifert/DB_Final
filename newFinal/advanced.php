@@ -8,19 +8,22 @@
 
 //Prints information regarding stadium(s)
 function SortStadium(){
-    if ($_POST['minCap'] < $_POST['maxCap'])
+    if (isset($_POST['minCap']) && isset($_POST['maxCap']))
     {
-        global $mysqli;
-        echo '<table border = 1> <tr> <td>Name</td> <td>Maximum Capacity</td> <td>City</td> <td>Year Built</td></tr>';
-        $res = $mysqli->query("SELECT name, max_capacity, city, year_built FROM stadium WHERE max_capacity BETWEEN '" . $_POST['minCap'] . "' AND " . $_POST['maxCap'])->fetch_all();
-        for ($i = 0; $i < count($res); $i++){
-            echo "<tr><td>" . $res[$i][0] . "</td><td>" . $res[$i][1] . "</td><td>" . $res[$i][2] . "</td><td>" . $res[$i][3] . "</td>";
+        if ($_POST['minCap'] < $_POST['maxCap'])
+        {
+            global $mysqli;
+            echo '<table border = 1> <tr> <td>Name</td> <td>Maximum Capacity</td> <td>City</td> <td>Year Built</td></tr>';
+            $res = $mysqli->query("SELECT name, max_capacity, city, year_built FROM stadium WHERE max_capacity BETWEEN '" . $_POST['minCap'] . "' AND " . $_POST['maxCap'])->fetch_all();
+            for ($i = 0; $i < count($res); $i++){
+                echo "<tr><td>" . $res[$i][0] . "</td><td>" . $res[$i][1] . "</td><td>" . $res[$i][2] . "</td><td>" . $res[$i][3] . "</td>";
+            }
+            echo "</table>";
         }
-        echo "</table>";
-    }
-    else if ($_POST['minCap'] >= $_POST['maxCap'])
-    {
-        echo "<script type='text/javascript'>alert('Please make sure the min capacity is less than the max capacity!');</script>";
+        else if ($_POST['minCap'] >= $_POST['maxCap'])
+        {
+            echo "<script type='text/javascript'>alert('Please make sure the min capacity is less than the max capacity!');</script>";
+        }
     }
 }
 
@@ -45,6 +48,20 @@ function OddEvenNumbers(){
         echo "</table>";
     }
 }
+
+function RareScorers(){
+    global $mysqli;
+    if (isset($_POST['rareScorer_Team']))
+    {
+        echo '<table border = 1> <tr><td>Team Name</td> <td>First Name</td> <td>Last Name</td> <td>Jersey Number</td> <td> Total Goals</td></tr>';
+        $res = $mysqli->query("SELECT t.name, first_name, last_name, jersey, SUM(pg.goals) FROM player p INNER JOIN team t ON t.id = p.team_id INNER JOIN player_game pg ON pg.player_id = p.id WHERE (t.name ='" . $_POST['rareScorer_Team'] . "'AND p.position='Defender'")->fetch_all();
+        for ($i =0; $i < count($res); $i++) {
+            echo "<tr><td>" . $res[$i][0] . "</td><td>" . $res[$i][1] . "</td><td>" . $res[$i][2] . "</td><td>" . $res[$i][3] . "</td><td>" . $res[$i][4] . "</td>";
+        }
+        echo "</table>";
+    }
+}
+
 ?>
 
 <!DOCTYPE HTML>
@@ -74,7 +91,7 @@ function OddEvenNumbers(){
 
 <br />
 
-<h4> Want to see which players on your chosen team has either odd or even jersey numbers at that specific position?  Check this out below!</h4>
+<h4>Want to see which players on your chosen team has either odd or even jersey numbers at that specific position?  Check this out below!</h4>
 <form action="advanced.php" method="post">
     Team: <select name="teamName">
         <?php
@@ -104,6 +121,26 @@ function OddEvenNumbers(){
     OddEvenNumbers();
 ?>
 <br />
+
+<h4>Want to see the rare defenders on each team that made goals and how many they have made in the 2015 season? (which is extremely rare nowadays)?  Click on below!</h4>
+<form action="advanced.php" method="post">
+    Team: <select name="rareScorer_Team">
+        <?php
+        $temp = "SELECT name FROM team";
+        $rows = $mysqli->query($temp)->fetch_all();
+        foreach($rows as $value){
+            echo "<option value = '$value[0]'>$value[0]</option>";
+        } ?>
+    </select>
+    <input type="submit">
+</form>
+<br/>
+
+<?php
+    RareScorers();
+?>
+<br />
+
 <?php include "footer.php"?>
 </body>
 </html>
