@@ -53,10 +53,20 @@ function RareScorers(){
     global $mysqli;
     if (isset($_POST['rareScorer_Team']))
     {
-        echo '<table border = 1> <tr><td>Team Name</td> <td>First Name</td> <td>Last Name</td> <td>Jersey Number</td> <td> Total Goals</td></tr>';
-        $res = $mysqli->query("SELECT t.name, first_name, last_name, jersey, SUM(pg.goals) FROM player p INNER JOIN team t ON t.id = p.team_id INNER JOIN player_game pg ON pg.player_id = p.id WHERE (t.name ='" . $_POST['rareScorer_Team'] . "'AND p.position='Defender'")->fetch_all();
-        for ($i =0; $i < count($res); $i++) {
-            echo "<tr><td>" . $res[$i][0] . "</td><td>" . $res[$i][1] . "</td><td>" . $res[$i][2] . "</td><td>" . $res[$i][3] . "</td><td>" . $res[$i][4] . "</td>";
+        echo '<table border = 1> <tr><td>Team Name</td> <td>Player Name</td> <td>Position</td> <td> Total Goals</td></tr>';
+  echo "<script type='text/javascript'>alert('Test1');</script>";
+  $res = $mysqli->query("SELECT p.id, t.name, CONCAT(p.first_name, ' ', p.last_name) AS 'playerName', p.position, SUM(pg.goals)
+    FROM player p
+    INNER JOIN team t ON t.id = p.team_id
+    INNER JOIN player_game pg ON pg.player_id = p.id
+    WHERE p.position != 'Forward'
+	AND t.name = '" . $_POST['rareScorer_Team'] . "'
+    GROUP BY p.id
+    HAVING SUM(pg.goals) > 0")->fetch_all();
+
+echo "<script type='text/javascript'>alert('Test2');</script>";  
+  for ($i =0; $i < count($res); $i++) {
+            echo "<tr><td>" . $res[$i][1] . "</td><td>" . $res[$i][2] . "</td><td>" . $res[$i][3] . "</td><td>" . $res[$i][4] . "</td>";
         }
         echo "</table>";
     }
@@ -122,7 +132,7 @@ function RareScorers(){
 ?>
 <br />
 
-<h4>Want to see the rare defenders on each team that made goals and how many they have made in the 2015 season? (which is extremely rare nowadays)?  Click on below!</h4>
+<h4>Forwards get all the glory! See if any players in OTHER positions scored any goals for your team:</h4>
 <form action="advanced.php" method="post">
     Team: <select name="rareScorer_Team">
         <?php

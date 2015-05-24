@@ -41,7 +41,7 @@ function printTeam(){
   ?>
 </head>
 <body>
-0<.?php include "header.php"?>
+<?php include "header.php"?>
 
   <h2>TEAMS</h2>
   
