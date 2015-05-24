@@ -1,4 +1,4 @@
-<?php
+70<?php
 
 //Allows user to view the stadium information. User may view all stadiums at once, or select a specific stadium.
 function viewStadium()

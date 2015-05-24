@@ -8,15 +8,19 @@
 
 //Prints information regarding stadium(s)
 function SortStadium(){
-    if (isset($_POST['sortCap']))
+    if ($_POST['minCap'] < $_POST['maxCap'])
     {
         global $mysqli;
         echo '<table border = 1> <tr> <td>Name</td> <td>Maximum Capacity</td> <td>City</td> <td>Year Built</td></tr>';
-        $res = $mysqli->query("SELECT name, max_capacity, city, year_built FROM stadium WHERE max_capacity <= '" . $_POST['sortCap'] . "'")->fetch_all();
+        $res = $mysqli->query("SELECT name, max_capacity, city, year_built FROM stadium WHERE max_capacity BETWEEN '" . $_POST['minCap'] . "' AND " . $_POST['maxCap'])->fetch_all();
         for ($i = 0; $i < count($res); $i++){
             echo "<tr><td>" . $res[$i][0] . "</td><td>" . $res[$i][1] . "</td><td>" . $res[$i][2] . "</td><td>" . $res[$i][3] . "</td>";
         }
         echo "</table>";
+    }
+    else if ($_POST['minCap'] >= $_POST['maxCap'])
+    {
+        echo "<script type='text/javascript'>alert('Please make sure the min capacity is less than the max capacity!');</script>";
     }
 }
 
@@ -56,10 +60,11 @@ function OddEvenNumbers(){
 </head>
 <body>
 <?php include "header.php";?>
-<h4>Want to sort Stadiums by it's capacity?  Enter a value below!</h4>
+<h4>Want to sort Stadiums by it's capacity?  Enter min and max values below!</h4>
         <form action="advanced.php" method="post">
-            <h4>Enter amount to show the stadiums with that max capacity and below!</h4>
-            <input type="number" name="sortCap" value="20000" min="1" max="999999">
+            <h4>Enter amount to show the stadiums within the min and max capacity below!</h4>
+            Min Capacity:<input type="number" name="minCap" value="20000" min="1" max="999999">
+            Max Capacity:<input type="number" name="maxCap" value="25000" min="1" max="999999">
             <input type="submit">
         </form>
 <br />
