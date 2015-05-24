@@ -53,22 +53,19 @@ function RareScorers(){
     global $mysqli;
     if (isset($_POST['rareScorer_Team']))
     {
-        echo '<table border = 1> <tr><td>Team Name</td> <td>Player Name</td> <td>Position</td> <td> Total Goals</td></tr>';
-  echo "<script type='text/javascript'>alert('Test1');</script>";
-  $res = $mysqli->query("SELECT p.id, t.name, CONCAT(p.first_name, ' ', p.last_name) AS 'playerName', p.position, SUM(pg.goals)
-    FROM player p
-    INNER JOIN team t ON t.id = p.team_id
-    INNER JOIN player_game pg ON pg.player_id = p.id
-    WHERE p.position != 'Forward'
-	AND t.name = '" . $_POST['rareScorer_Team'] . "'
-    GROUP BY p.id
-    HAVING SUM(pg.goals) > 0")->fetch_all();
-
-echo "<script type='text/javascript'>alert('Test2');</script>";  
-  for ($i =0; $i < count($res); $i++) {
-            echo "<tr><td>" . $res[$i][1] . "</td><td>" . $res[$i][2] . "</td><td>" . $res[$i][3] . "</td><td>" . $res[$i][4] . "</td>";
-        }
-        echo "</table>";
+      echo '<table border = 1> <tr><td>Team Name</td> <td>Player Name</td> <td>Position</td> <td> Total Goals</td></tr>';
+      $res = $mysqli->query("SELECT p.id, t.name, CONCAT(p.first_name, ' ', p.last_name) AS 'playerName', p.position, SUM(pg.goals)
+        FROM player p
+        INNER JOIN team t ON t.id = p.team_id
+        INNER JOIN player_game pg ON pg.player_id = p.id
+        WHERE p.position != 'Forward'
+	    AND t.name = '" . $_POST['rareScorer_Team'] . "'
+        GROUP BY p.id
+        HAVING SUM(pg.goals) > 0")->fetch_all();
+      for ($i =0; $i < count($res); $i++) {
+        echo "<tr><td>" . $res[$i][1] . "</td><td>" . $res[$i][2] . "</td><td>" . $res[$i][3] . "</td><td>" . $res[$i][4] . "</td>";
+      }
+      echo "</table>";
     }
 }
 
