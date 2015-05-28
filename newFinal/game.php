@@ -1,14 +1,42 @@
 <?php
 include "userinfo.php";
-
+/*
 function showTeams()
 {
-  
   $temp = "SELECT name FROM team";
   $rows = $mysqli->query($temp)->fetch_all();
   foreach($rows as $value){
     echo "<option value = '$value[0]'>$value[0]</option>";
-  } 	
+  }
+}
+*/
+function showGame()
+{
+    global $mysqli;
+    $temp = "SELECT id, home_team, away_team, date FROM game ORDER BY date ASC";
+    $rows = $mysqli->query($temp)->fetch_all();
+    echo '<form action="game.php" method ="post"><select name="game_id" required>';
+    foreach($rows as $value) {
+        $tempHomeTeam = $mysqli->query("SELECT name from team where id = '" . $value[1] . "'")->fetch_row()[0];
+        $tempAwayTeam = $mysqli->query("SELECT name from team where id = '" . $value[2] . "'")->fetch_row()[0];
+        echo "<option value ='$value[0]'>$value[3]: $tempHomeTeam, $tempAwayTeam</option>option>";
+        global $gameScore;
+        $gameScore = $value[0];
+    }
+    echo '</select><input type="submit" value = "Show Game"></form>';
+}
+
+function getGame()
+{
+    global $mysqli;
+    global $gameScore;
+    echo $gameScore;
+    if (isset($_POST['game_id'])) {
+        echo '<table border = 1> <tr> <th>Date</th> <th>Stadium</th> <th>Home Team</th> <th>Home Score</th> <th>Away Team</th> <th>Away Score</th></tr>';
+        $res = $mysqli->query("SELECT g.date, s.name, g.home_team, g.home_score, g.away_team, g.away_score FROM game g INNER JOIN team t ON t.id = g.home_team INNER JOIN stadium s ON s.id = t.stadium_id WHERE g.id ='" . $gameScore . "'")->fetch_all();
+        echo "<tr><td>" . $res[0] . "</td><td>" . $res[1] . "</td><td>" . $res[2] . "</td><td>" . $res[3] . "</td><td>" . $res[4] . "</td><td>" . $res[5] . "</td></tr>";
+        echo "</table>";
+    }
 }
 
 function deleteGame()
@@ -22,10 +50,9 @@ function deleteGame()
     $tempAwayTeam = $mysqli->query("SELECT name FROM team WHERE id = '" . $value[2] . "'")->fetch_row()[0];
     echo "<option value = '$value[0]'>$value[5]: $tempHomeTeam:$value[3], $tempAwayTeam:$value[4]</option>";
   } 
-  echo '</select><input type="submit" value = "Delete" onclick = "return confirmDelete()"></input></form>';
+  echo '</select><input type="submit" value = "Delete" onclick = "return confirmDelete()"></form>';
 	
 }
-
 function addGame()
 {
   global $mysqli;
@@ -108,12 +135,19 @@ function addGame()
       </form>";
   }
   ?>
+
+<h4>Want to look at the results of a specific game?  Select a game below!</h4>
+Select Game:
+    <?php showGame();
+    getGame();
+    ?>
+
+<br />
   
   <h4>Some games are so ugly, you want to pretend they never happened. Now you can! Get rid of evidence that your favorite team is a perennial disappointment.</h4>
   Select Game:
     <?php deleteGame(); ?>
 
-  <h4></h4>
   
 <?php include "footer.php"?>
 </body>

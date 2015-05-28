@@ -149,6 +149,8 @@ function RareScorers(){
 ?>
 <br />
 
+<h4></h4>
+
 <?php include "footer.php"?>
 </body>
 </html>

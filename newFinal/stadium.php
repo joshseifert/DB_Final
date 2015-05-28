@@ -25,7 +25,7 @@ function printStadium(){
         $res = $mysqli->query("SELECT name, max_capacity, city, year_built FROM stadium WHERE name = '" . $_POST['name'] . "'")->fetch_all();
     }
     for ($i = 0; $i < count($res); $i++){
-        echo "<tr><td>" . $res[$i][0] . "</td><td>" . $res[$i][1] . "</td><td>" . $res[$i][2] . "</td><td>" . $res[$i][3] . "</td>";
+        echo "<tr><td>" . $res[$i][0] . "</td><td>" . $res[$i][1] . "</td><td>" . $res[$i][2] . "</td><td>" . $res[$i][3] . "</td></tr>";
     }
     echo "</table>";
 }
