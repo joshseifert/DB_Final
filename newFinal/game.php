@@ -87,7 +87,7 @@ function addGame()
 	
 
     echo '<form action="insertGame.php" method="post">';
-	echo '<table border = 1> <tr><td>First Name</td> <td>Last Name</td> <td>Position</td> <td>Team</td> <td>Score</td></tr>';
+	echo '<table border = 1> <tr><th>First Name</th> <th>Last Name</th> <th>Position</th> <th>Team</th> <th>Score</th></tr>';
 	$temp = "SELECT p.id, p.first_name, p.last_name, p.position, t.name 
 	  FROM player p 
 	  INNER JOIN team t ON p.team_id = t.id 

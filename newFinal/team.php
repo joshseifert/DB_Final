@@ -13,7 +13,7 @@ function viewTeam()
 
 function printTeam(){
   global $mysqli;
-  echo '<table border = 1> <tr> <td>Name</td> <td>Mascot</td> <td>Year Founded</td> <td>2014 Avg Home Attendance</td><td>Stadium</td></tr>';
+  echo '<table border = 1> <tr> <th>Name</th> <th>Mascot</th> <th>Year Founded</th> <th>2014 Avg Home Attendance</th><th>Stadium</th></tr>';
   if($_POST['name'] == "All"){
 	  //Must do LEFT JOIN to get teams that do not have a stadium!
     $res = $mysqli->query("SELECT t.name, t.mascot, t.year_founded, t.home_attendance, s.name FROM team t LEFT JOIN stadium s ON s.id = t.stadium_id")->fetch_all();

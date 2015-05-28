@@ -13,7 +13,7 @@ function viewTeam()
 
 function printTeamPlayers(){
   global $mysqli;
-  echo '<table border = 1> <tr> <td>First Name</td> <td>Last Name</td> <td>Age</td> <td>Position</td> <td>Jersey #</td></tr>';
+  echo '<table border = 1> <tr> <th>First Name</th> <th>Last Name</th> <th>Age</th> <th>Position</th> <th>Jersey #</th></tr>';
   $res = $mysqli->query("SELECT p.first_name, p.last_name, p.DOB, p.position, p.jersey FROM player p INNER JOIN team t ON t.id = p.team_id WHERE t.name = '" . $_POST['teamName'] . "'")->fetch_all();
   for ($i = 0; $i < count($res); $i++){
     echo "<tr><td>" . $res[$i][0] . "</td><td>" . $res[$i][1] . "</td><td>" . $res[$i][2] . "</td><td>" . $res[$i][3] . "</td><td>" . $res[$i][4] . "</td>";

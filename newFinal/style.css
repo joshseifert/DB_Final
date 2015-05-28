@@ -24,35 +24,52 @@ footer {
 }
 
 h1{
-  text-align: center;
+
+    text-align: center;
 }
 
 h2{
-  text-align: center;
+    background-color: green;
+    color: white;
+    text-align: center;
 }
 
 h3{
-  text-align: center;
+
+    text-align: center;
+}
+
+h4{
+    text-align: left;
+
 }
 
 p{
-  margin-left: 10%;
-  margin-right: 10%;
+  margin-left: auto;
+  margin-right: auto;
   font-family: Verdana, Arial, Helvetica, sans-serif;
-  font-size: 18px;
+  font-size: 10px;
 }
 
 form{
-  font-family: Verdana, Arial, Helvetica, sans-serif;
-  font-size: 14px;
+    font-family: Verdana, Arial, Helvetica, sans-serif;
+    font-size: 14px;
+}
+
+input[type=submit] {
+    border-radius: 10px;
+    font-family: Arial;
+    color: white;
+    font-size: 12px;
+    background: green;
 }
 
 .button {
   border-radius: 10px;
   font-family: Arial;
-  color: #ffffff;
+  color: green;
   font-size: 20px;
-  background: #999999;
+  background: white;
   padding: 30px 50px 30px 50px;
   margin-left: auto;
   margin-right: auto;
@@ -61,4 +78,26 @@ form{
 
 .button:hover {
   background: #333333;
+}
+
+table {
+    border-collapse: collapse;
+    border: 2px solid black;
+}
+
+table, th, td{
+    background: white;
+    padding: 5px 10px 5px 10px;
+    text-align: center;
+}
+
+th {
+    font-size: 20px;
+    color: green;
+
+}
+
+td {
+    font-size: 16px;
+    color: black;
 }

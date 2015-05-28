@@ -3,31 +3,31 @@
 //Allows user to view the stadium information. User may view all stadiums at once, or select a specific stadium.
 function viewStadium()
 {
-  global $mysqli;
-  $temp = "SELECT name FROM stadium";
-  $rows = $mysqli->query($temp)->fetch_all();
-  echo '<form action = "stadium.php" method = "post"><select name = "name"><option value = "All">All</option>';
-  foreach($rows as $value){
-    echo "<option value = '$value[0]'>$value[0]</option>";
-  }
-  echo '</select><input type = "submit"></input></form>';
+    global $mysqli;
+    $temp = "SELECT name FROM stadium";
+    $rows = $mysqli->query($temp)->fetch_all();
+    echo '<form action = "stadium.php" method = "post"><select name = "name"><option value = "All">All</option>';
+    foreach($rows as $value){
+        echo "<option value = '$value[0]'>$value[0]</option>";
+    }
+    echo '</select><input type = "submit"></input></form>';
 }
 
 
 //Prints information regarding stadium(s)
 function printStadium(){
-  global $mysqli;
-  echo '<table border = 1> <tr> <td>Name</td> <td>Maximum Capacity</td> <td>City</td> <td>Year Built</td></tr>';
-  if($_POST['name'] == "All"){	//Get name of every stadium
-    $res = $mysqli->query("SELECT name, max_capacity, city, year_built FROM stadium")->fetch_all();
-  }
-  else{	//Get name of specific stadium
-    $res = $mysqli->query("SELECT name, max_capacity, city, year_built FROM stadium WHERE name = '" . $_POST['name'] . "'")->fetch_all();
-  }  
-  for ($i = 0; $i < count($res); $i++){
-    echo "<tr><td>" . $res[$i][0] . "</td><td>" . $res[$i][1] . "</td><td>" . $res[$i][2] . "</td><td>" . $res[$i][3] . "</td>";
-  }
-  echo "</table>";
+    global $mysqli;
+    echo '<table border = 1> <tr> <th>Name</th> <th>Maximum Capacity</th> <th>City</th> <th>Year Built</th></tr>';
+    if($_POST['name'] == "All"){	//Get name of every stadium
+        $res = $mysqli->query("SELECT name, max_capacity, city, year_built FROM stadium")->fetch_all();
+    }
+    else{	//Get name of specific stadium
+        $res = $mysqli->query("SELECT name, max_capacity, city, year_built FROM stadium WHERE name = '" . $_POST['name'] . "'")->fetch_all();
+    }
+    for ($i = 0; $i < count($res); $i++){
+        echo "<tr><td>" . $res[$i][0] . "</td><td>" . $res[$i][1] . "</td><td>" . $res[$i][2] . "</td><td>" . $res[$i][3] . "</td>";
+    }
+    echo "</table>";
 }
 
 function deleteStadium()

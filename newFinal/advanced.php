@@ -13,7 +13,7 @@ function SortStadium(){
         if ($_POST['minCap'] < $_POST['maxCap'])
         {
             global $mysqli;
-            echo '<table border = 1> <tr> <td>Name</td> <td>Maximum Capacity</td> <td>City</td> <td>Year Built</td></tr>';
+            echo '<table border = 1> <tr> <th>Name</th> <th>Maximum Capacity</th> <th>City</th> <th>Year Built</th></tr>';
             $res = $mysqli->query("SELECT name, max_capacity, city, year_built FROM stadium WHERE max_capacity BETWEEN '" . $_POST['minCap'] . "' AND " . $_POST['maxCap'])->fetch_all();
             for ($i = 0; $i < count($res); $i++){
                 echo "<tr><td>" . $res[$i][0] . "</td><td>" . $res[$i][1] . "</td><td>" . $res[$i][2] . "</td><td>" . $res[$i][3] . "</td>";
@@ -31,7 +31,7 @@ function OddEvenNumbers(){
     global $mysqli;
 		
     if ($_POST['odd_even']=='Odd') {
-        echo '<table border = 1> <tr><td>Team Name</td> <td>First Name</td> <td>Last Name</td> <td>Position</td> <td>Jersey Number</td></tr>';
+        echo '<table border = 1> <tr><th>Team Name</th> <th>First Name</th> <th>Last Name</th> <th>Position</th> <th>Jersey Number</th></tr>';
         $res = $mysqli->query("SELECT t.name, first_name, last_name, position, jersey FROM player p INNER JOIN team t ON t.id = p.team_id WHERE (t.name ='" . $_POST['teamName'] . "'AND p.position='" . $_POST['position'] . "'AND (p.jersey % 2 != 0))")->fetch_all();
         for ($i = 0; $i < count($res); $i++) {
             echo "<tr><td>" . $res[$i][0] . "</td><td>" . $res[$i][1] . "</td><td>" . $res[$i][2] . "</td><td>" . $res[$i][3] . "</td><td>" . $res[$i][4] . "</td>";
@@ -40,7 +40,7 @@ function OddEvenNumbers(){
     }
     else if ($_POST['odd_even']=='Even')
     {
-		echo '<table border = 1> <tr> <td>Team Name</td> <td>First Name</td> <td>Last Name</td> <td>Position</td> <td>Jersey Number</td></tr>';
+		echo '<table border = 1> <tr> <th>Team Name</th> <th>First Name</th> <th>Last Name</th> <th>Position</th> <th>Jersey Number</th></tr>';
         $res = $mysqli->query("SELECT t.name, first_name, last_name, position, jersey FROM player p INNER JOIN team t ON t.id = p.team_id WHERE (t.name ='" . $_POST['teamName'] . "'AND p.position='" . $_POST['position'] . "'AND (p.jersey % 2 = 0))")->fetch_all();
         for ($i = 0; $i < count($res); $i++) {
             echo "<tr><td>" . $res[$i][0] . "</td><td>" . $res[$i][1] . "</td><td>" . $res[$i][2] . "</td><td>" . $res[$i][3] . "</td><td>" . $res[$i][4] . "</td>";
@@ -53,7 +53,7 @@ function RareScorers(){
     global $mysqli;
     if (isset($_POST['rareScorer_Team']))
     {
-      echo '<table border = 1> <tr><td>Team Name</td> <td>Player Name</td> <td>Position</td> <td> Total Goals</td></tr>';
+      echo '<table border = 1> <tr><th>Team Name</th> <th>Player Name</th> <th>Position</th> <th>Total Goals</th></tr>';
       $res = $mysqli->query("SELECT p.id, t.name, CONCAT(p.first_name, ' ', p.last_name) AS 'playerName', p.position, SUM(pg.goals)
         FROM player p
         INNER JOIN team t ON t.id = p.team_id
@@ -84,9 +84,10 @@ function RareScorers(){
 </head>
 <body>
 <?php include "header.php";?>
-<h4>Want to sort Stadiums by it's capacity?  Enter min and max values below!</h4>
+<h2>ADVANCED</h2>
+<h4>Enter amount to show the stadiums within the min and max capacity below!</h4>
         <form action="advanced.php" method="post">
-            <h4>Enter amount to show the stadiums within the min and max capacity below!</h4>
+
             Min Capacity:<input type="number" name="minCap" value="20000" min="1" max="999999">
             Max Capacity:<input type="number" name="maxCap" value="25000" min="1" max="999999">
             <input type="submit">
