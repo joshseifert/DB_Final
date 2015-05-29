@@ -20,8 +20,8 @@ function showGame()
         $tempHomeTeam = $mysqli->query("SELECT name from team where id = '" . $value[1] . "'")->fetch_row()[0];
         $tempAwayTeam = $mysqli->query("SELECT name from team where id = '" . $value[2] . "'")->fetch_row()[0];
         echo "<option value ='$value[0]'>$value[3]: $tempHomeTeam, $tempAwayTeam</option>option>";
-        global $gameScore;
-        $gameScore = $value[0];
+ //       global $gameScore;
+ //       $gameScore = $value[0];
     }
     echo '</select><input type="submit" value = "Show Game"></form>';
 }
@@ -29,12 +29,20 @@ function showGame()
 function getGame()
 {
     global $mysqli;
-    global $gameScore;
-    echo $gameScore;
+ //   global $gameScore;
+ //   echo $gameScore;
+ //   echo $_POST['game_id'];
     if (isset($_POST['game_id'])) {
         echo '<table border = 1> <tr> <th>Date</th> <th>Stadium</th> <th>Home Team</th> <th>Home Score</th> <th>Away Team</th> <th>Away Score</th></tr>';
-        $res = $mysqli->query("SELECT g.date, s.name, g.home_team, g.home_score, g.away_team, g.away_score FROM game g INNER JOIN team t ON t.id = g.home_team INNER JOIN stadium s ON s.id = t.stadium_id WHERE g.id ='" . $gameScore . "'")->fetch_all();
-        echo "<tr><td>" . $res[0] . "</td><td>" . $res[1] . "</td><td>" . $res[2] . "</td><td>" . $res[3] . "</td><td>" . $res[4] . "</td><td>" . $res[5] . "</td></tr>";
+        $res = $mysqli->query
+			("SELECT g.date, s.name, g.home_team, g.home_score, g.away_team, g.away_score 
+			FROM game g 
+			INNER JOIN team t ON t.id = g.home_team 
+			INNER JOIN stadium s ON s.id = t.stadium_id 
+			WHERE g.id ='" . $_POST['game_id'] . "'")->fetch_all();
+		$tempHomeTeam = $mysqli->query("SELECT name from team where id = '" . $res[0][2] . "'")->fetch_row()[0];
+        $tempAwayTeam = $mysqli->query("SELECT name from team where id = '" . $res[0][4] . "'")->fetch_row()[0];	
+        echo "<tr><td>" . $res[0][0] . "</td><td>" . $res[0][1] . "</td><td>" . $tempHomeTeam . "</td><td>" . $res[0][3] . "</td><td>" . $tempAwayTeam . "</td><td>" . $res[0][5] . "</td></tr>";
         echo "</table>";
     }
 }
