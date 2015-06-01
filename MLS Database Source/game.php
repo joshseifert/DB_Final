@@ -1,7 +1,15 @@
 <?php
 include "userinfo.php";
-
-//Dropdown menu so user can select game
+/*
+function showTeams()
+{
+  $temp = "SELECT name FROM team";
+  $rows = $mysqli->query($temp)->fetch_all();
+  foreach($rows as $value){
+    echo "<option value = '$value[0]'>$value[0]</option>";
+  }
+}
+*/
 function showGame()
 {
     global $mysqli;
@@ -12,14 +20,18 @@ function showGame()
         $tempHomeTeam = $mysqli->query("SELECT name from team where id = '" . $value[1] . "'")->fetch_row()[0];
         $tempAwayTeam = $mysqli->query("SELECT name from team where id = '" . $value[2] . "'")->fetch_row()[0];
         echo "<option value ='$value[0]'>$value[3]: $tempHomeTeam, $tempAwayTeam</option>option>";
+ //       global $gameScore;
+ //       $gameScore = $value[0];
     }
     echo '</select><input type="submit" value = "Show Game"></form>';
 }
 
-//Shows all information regarding a specific game
 function getGame()
 {
     global $mysqli;
+ //   global $gameScore;
+ //   echo $gameScore;
+ //   echo $_POST['game_id'];
     if (isset($_POST['game_id'])) {
         echo '<table border = 1> <tr> <th>Date</th> <th>Stadium</th> <th>Home Team</th> <th>Home Score</th> <th>Away Team</th> <th>Away Score</th></tr>';
         $res = $mysqli->query
@@ -75,7 +87,6 @@ function addGame()
   </form>';
 }
 ?>
-
 <!DOCTYPE HTML>
 <html>
 <head>
@@ -91,53 +102,59 @@ function addGame()
   <h4>Record all the details of the latest match</h4>
   <h4>ADD A GAME:</h4>
  
+<!--  <form action="insertGame.php" method="post" > -->
+	
+<!-- START OF PAGE HERE -->  
   <?php 
   if(!isset($_POST['home_team']))
     addGame();
     
   if(isset($_POST['home_team']))
   {
-	$home_id = $mysqli->query("SELECT id FROM team WHERE name = '" . $_POST['home_team'] . "'")->fetch_row()[0];
-	$away_id = $mysqli->query("SELECT id FROM team WHERE name = '" . $_POST['away_team'] . "'")->fetch_row()[0];
+      $home_id = $mysqli->query("SELECT id FROM team WHERE name = '" . $_POST['home_team'] . "'")->fetch_row()[0];
+      $away_id = $mysqli->query("SELECT id FROM team WHERE name = '" . $_POST['away_team'] . "'")->fetch_row()[0];
 
-	echo 'Home Team: ' . $_POST['home_team'] . '<br />
-	Away Team: ' . $_POST['away_team'] . '<br />
-	Home Score: ' . $_POST['home_score'] . '<br />
-	Away Score: ' . $_POST['away_score'];	
-	
+      echo 'Home Team: ' . $_POST['home_team'] . '<br />
+      Away Team: ' . $_POST['away_team'] . '<br />
+      Home Score: ' . $_POST['home_score'] . '<br />
+      Away Score: ' . $_POST['away_score'];
 
-    echo '<form action="insertGame.php" method="post">';
-	echo '<table border = 1> <tr><th>First Name</th> <th>Last Name</th> <th>Position</th> <th>Team</th> <th>Score</th></tr>';
-	$temp = "SELECT p.id, p.first_name, p.last_name, p.position, t.name 
-	  FROM player p 
-	  INNER JOIN team t ON p.team_id = t.id 
-	  WHERE t.id IN ('$home_id','$away_id')  ";
-    $rows = $mysqli->query($temp)->fetch_all();
-    for ($i = 0; $i < count($rows); $i++){
-      echo "<tr><td>" . $rows[$i][1] . "</td><td>" . $rows[$i][2] . "</td><td>" . $rows[$i][3] . "</td><td>" . $rows[$i][4] . "</td>";
-	  echo "<td><input type='number' name=" . $rows[$i][0] . " value=0 min=0 max=99>"; //Set name equal to player's id.
-    }
-	//"Hidden" variables Re-POST previous information regarding teams, scores.
-    echo "</table>
-      <input type='hidden' name='home_team' value='" . $_POST['home_team'] . "'/>
-	  <input type='hidden' name='away_team' value='" . $_POST['away_team'] . "'/>
-	  <input type='hidden' name='home_score' value='" . $_POST['home_score'] . "'/>
-	  <input type='hidden' name='away_score' value='" . $_POST['away_score'] . "'/>
-	  <input type='hidden' name='date' value='" . $_POST['date'] . "'/>
-      <input type='submit'>
-      </form>";
+
+      echo '<form action="insertGame.php" method="post">';
+      echo '<table border = 1> <tr><th>First Name</th> <th>Last Name</th> <th>Position</th> <th>Team</th> <th>Score</th></tr>';
+      $temp = "SELECT p.id, p.first_name, p.last_name, p.position, t.name
+      FROM player p
+      INNER JOIN team t ON p.team_id = t.id
+      WHERE t.id IN ('$home_id','$away_id')  ";
+      $rows = $mysqli->query($temp)->fetch_all();
+      for ($i = 0; $i < count($rows); $i++){
+        echo "<tr><td>" . $rows[$i][1] . "</td><td>" . $rows[$i][2] . "</td><td>" . $rows[$i][3] . "</td><td>" . $rows[$i][4] . "</td>";
+        echo "<td><input type='number' name=" . $rows[$i][0] . " value=0 min=0 max=99>"; //Set name equal to player's id.
+      }
+    //"Hidden" variables Re-POST previous information regarding teams, scores.
+      echo "</table>
+        <input type='hidden' name='home_team' value='" . $_POST['home_team'] . "'/>
+      <input type='hidden' name='away_team' value='" . $_POST['away_team'] . "'/>
+      <input type='hidden' name='home_score' value='" . $_POST['home_score'] . "'/>
+      <input type='hidden' name='away_score' value='" . $_POST['away_score'] . "'/>
+      <input type='hidden' name='date' value='" . $_POST['date'] . "'/>
+        <input type='submit'>
+        </form>";
   }
   ?>
-  <h4>Want to look at the results of a specific game?  Select a game below!</h4>
-  Select Game:
-  <?php 
-	showGame();
- 	getGame();
-  ?>
-  <br />
+<h4>Want to look at the results of a specific game?  Select a game below!</h4>
+Select Game:
+    <?php showGame();
+    getGame();
+    ?>
+
+<br />
+  
   <h4>Some games are so ugly, you want to pretend they never happened. Now you can! Get rid of evidence that your favorite team is a perennial disappointment.</h4>
   Select Game:
-  <?php deleteGame(); ?>
+    <?php deleteGame(); ?>
+
+  
 <?php include "footer.php"?>
 </body>
 </html>

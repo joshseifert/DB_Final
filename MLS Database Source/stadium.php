@@ -13,6 +13,7 @@ function viewStadium()
     echo '</select><input type = "submit"></input></form>';
 }
 
+
 //Prints information regarding stadium(s)
 function printStadium(){
     global $mysqli;

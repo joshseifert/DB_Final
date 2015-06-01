@@ -112,7 +112,7 @@ function addGame()
     
   if(isset($_POST['home_team'])
   {
-    if ($_POST['away_team'] != $_POST['home_team']))
+    if ($_POST['away_team'] != $_POST['home_team'])
     {
       $home_id = $mysqli->query("SELECT id FROM team WHERE name = '" . $_POST['home_team'] . "'")->fetch_row()[0];
     $away_id = $mysqli->query("SELECT id FROM team WHERE name = '" . $_POST['away_team'] . "'")->fetch_row()[0];

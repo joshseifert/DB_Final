@@ -1,4 +1,4 @@
-<?php
+ <?php
 include 'userinfo.php';
 
 if(isset($_POST['name'])){
