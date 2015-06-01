@@ -1,11 +1,4 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: Austin
- * Date: 5/20/2015
- * Time: 7:12 PM
- */
-
 //Prints information regarding stadium(s)
 function SortStadium(){
     if (isset($_POST['minCap']) && isset($_POST['maxCap']))
@@ -27,6 +20,7 @@ function SortStadium(){
     }
 }
 
+//Shows players by position with even or odd jersey numbers
 function OddEvenNumbers(){
     global $mysqli;
 		
@@ -49,6 +43,7 @@ function OddEvenNumbers(){
     }
 }
 
+//Shows players by team in positions besides forwards who score goals
 function RareScorers(){
     global $mysqli;
     if (isset($_POST['rareScorer_Team']))

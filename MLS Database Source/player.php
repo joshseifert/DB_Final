@@ -20,9 +20,6 @@ function printTeamPlayers(){
   }
   echo "</table>";
 }
-
-
-
 ?>
 
 <!DOCTYPE HTML>
@@ -76,8 +73,6 @@ function printTeamPlayers(){
   </form>
 
 <br />
-
-
 
   <?php include "footer.php"?>
 

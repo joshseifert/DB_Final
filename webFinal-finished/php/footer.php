@@ -1,1 +1,0 @@
-<footer>CS340 Final Project, Spring 2015. Written by Josh Seifert and Austin Welborn.</footer>

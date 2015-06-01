@@ -1,15 +1,7 @@
 <?php
 include "userinfo.php";
-/*
-function showTeams()
-{
-  $temp = "SELECT name FROM team";
-  $rows = $mysqli->query($temp)->fetch_all();
-  foreach($rows as $value){
-    echo "<option value = '$value[0]'>$value[0]</option>";
-  }
-}
-*/
+
+//Dropdown menu so user can select game
 function showGame()
 {
     global $mysqli;
@@ -20,18 +12,14 @@ function showGame()
         $tempHomeTeam = $mysqli->query("SELECT name from team where id = '" . $value[1] . "'")->fetch_row()[0];
         $tempAwayTeam = $mysqli->query("SELECT name from team where id = '" . $value[2] . "'")->fetch_row()[0];
         echo "<option value ='$value[0]'>$value[3]: $tempHomeTeam, $tempAwayTeam</option>option>";
- //       global $gameScore;
- //       $gameScore = $value[0];
     }
     echo '</select><input type="submit" value = "Show Game"></form>';
 }
 
+//Shows all information regarding a specific game
 function getGame()
 {
     global $mysqli;
- //   global $gameScore;
- //   echo $gameScore;
- //   echo $_POST['game_id'];
     if (isset($_POST['game_id'])) {
         echo '<table border = 1> <tr> <th>Date</th> <th>Stadium</th> <th>Home Team</th> <th>Home Score</th> <th>Away Team</th> <th>Away Score</th></tr>';
         $res = $mysqli->query
@@ -103,9 +91,6 @@ function addGame()
   <h4>Record all the details of the latest match</h4>
   <h4>ADD A GAME:</h4>
  
-<!--  <form action="insertGame.php" method="post" > -->
-	
-<!-- START OF PAGE HERE -->  
   <?php 
   if(!isset($_POST['home_team']))
     addGame();
@@ -143,20 +128,16 @@ function addGame()
       </form>";
   }
   ?>
-
-<h4>Want to look at the results of a specific game?  Select a game below!</h4>
-Select Game:
-    <?php showGame();
-    getGame();
-    ?>
-
-<br />
-  
+  <h4>Want to look at the results of a specific game?  Select a game below!</h4>
+  Select Game:
+  <?php 
+	showGame();
+ 	getGame();
+  ?>
+  <br />
   <h4>Some games are so ugly, you want to pretend they never happened. Now you can! Get rid of evidence that your favorite team is a perennial disappointment.</h4>
   Select Game:
-    <?php deleteGame(); ?>
-
-  
+  <?php deleteGame(); ?>
 <?php include "footer.php"?>
 </body>
 </html>

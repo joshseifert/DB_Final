@@ -23,5 +23,4 @@ if(isset($_POST['first_name'])){
 header("location: player.php");
 exit();
 }
-
 ?>
